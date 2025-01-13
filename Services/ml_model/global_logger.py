@@ -9,17 +9,17 @@ class GlobalLogger:
         ch = logging.StreamHandler()
         ch.setLevel(logging.DEBUG)
         
-        # Create file handler if log_file is provided
-        if log_file:
-            fh = logging.FileHandler(log_file)
-            fh.setLevel(logging.DEBUG)
-            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(data)s')
-            fh.setFormatter(formatter)
-            self.logger.addHandler(fh)
-        
+        # Create formatter
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(data)s')
         ch.setFormatter(formatter)
         self.logger.addHandler(ch)
+        
+        # Add file handler if specified
+        if log_file:
+            fh = logging.FileHandler(log_file)
+            fh.setLevel(logging.DEBUG)
+            fh.setFormatter(formatter)
+            self.logger.addHandler(fh)
 
     def info(self, message, extra=None):
         if extra is None:
